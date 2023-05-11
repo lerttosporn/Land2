@@ -29,14 +29,17 @@ class MainActivity : AppCompatActivity() {
             changeTemp(false)
         }
     }
+
     var temp: Double = 0.00
 
     private fun changeTemp(bool: Boolean) {
-        if (bool) {
-            temp = temp-273
+        var boolInFun: Boolean = true
+        if (bool && boolInFun) {
+            temp = temp - 273
             beforButton = false
-        } else if (!bool && !beforButton) {
-            temp = temp+273
+            boolInFun = false
+        } else if (!bool && !beforButton && boolInFun) {
+            temp = temp + 273
         }
         Log.i("tttttttttttttt", "$temp")
         binding.temp.text = getString(
@@ -62,10 +65,14 @@ class MainActivity : AppCompatActivity() {
                     binding.temp.text = getString(R.string.Temperature, data.main.temp.toString())
                     binding.humidity.text =
                         getString(R.string.Humidity, data.main.humidity.toString())
-                } else  {
+                } else {
                     Log.i("APIiiii", data.toString())
 
-                    Toast.makeText(applicationContext, "I don't have $city city", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "I don't have $city city",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
