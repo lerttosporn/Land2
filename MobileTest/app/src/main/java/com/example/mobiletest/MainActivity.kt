@@ -30,22 +30,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    var temp: Double = 0.00
-    var boolInFun: Boolean = true
+    var temp: Double? = null
     private fun changeTemp(bool: Boolean) {
-        if (bool && boolInFun) {
-            temp = temp - 273
-            beforButton = false
-            boolInFun = false
-        } else if (!bool && !beforButton && boolInFun) {
-            temp = temp + 273
-            boolInFun = true
+//        K->C
+        if (temp != null) {
+            if (bool && beforButton) {
+                temp = temp!! - 273
+                beforButton = false
+                binding.temp.text = getString(
+                    R.string.Temperature,
+                    NumberFormat.getNumberInstance().format(temp) + "C"
+                )
+            }
+//        C->K
+            else if (!bool && !beforButton) {
+                temp = temp!! + 273
+                beforButton = true
+                binding.temp.text = getString(
+                    R.string.Temperature,
+                    NumberFormat.getNumberInstance().format(temp) + "K"
+                )
+            }
+            Log.i("tttttttttttttt", "$temp")
+        } else {
+            Toast.makeText(
+                applicationContext,
+                "Pls. put you city",
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        Log.i("tttttttttttttt", "$temp")
-        binding.temp.text = getString(
-            R.string.Temperature,
-            NumberFormat.getNumberInstance().format(temp)
-        )
+
     }
 
     private fun getWeather(city: String) {
@@ -62,18 +76,21 @@ class MainActivity : AppCompatActivity() {
                     Log.i("API", data.toString())
                     temp = data.main.temp.toString().toDouble()
                     binding.city.text = getString(R.string.City, data.name)
-                    binding.temp.text = getString(R.string.Temperature, data.main.temp.toString())
+                    binding.temp.text =
+                        getString(R.string.Temperature, data.main.temp.toString() + "K")
                     binding.humidity.text =
                         getString(R.string.Humidity, data.main.humidity.toString())
                 } else {
                     Log.i("APIiiii", data.toString())
-
+                    temp = data?.main?.temp?.toString()?.toDouble()
                     Toast.makeText(
                         applicationContext,
                         "I don't have $city city",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                beforButton = true
+
             }
         })
 

@@ -60,16 +60,16 @@
                 tools:text="Humidity :" />
 
             <Button
-                android:id="@+id/buttonK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="to K" />
-
-            <Button
                 android:id="@+id/buttonC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="to C" />
+
+            <Button
+                android:id="@+id/buttonK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="to K" />
         </LinearLayout>
     </ScrollView>
 
