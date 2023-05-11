@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
             changeTemp(false)
         }
     }
-
-    var temp: Double? = null
+    private var temp: Double? = null
     private fun changeTemp(bool: Boolean) {
 //        K->C
         if (temp != null) {
@@ -61,15 +60,12 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     private fun getWeather(city: String) {
-
         val call = ApiService.retrofitBuild().getWeather(city)
         call.enqueue(object : Callback<WeCity> {
             override fun onFailure(call: Call<WeCity>, t: Throwable) {
                 Log.e("API ERROR!!!!!", t.message.toString())
             }
-
             override fun onResponse(call: Call<WeCity>, response: Response<WeCity>) {
                 val data = response.body()
                 if (response.isSuccessful && data != null) {
@@ -90,10 +86,7 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                 }
                 beforButton = true
-
             }
         })
-
-
     }
 }
