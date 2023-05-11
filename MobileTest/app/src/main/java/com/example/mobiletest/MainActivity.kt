@@ -31,15 +31,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     var temp: Double = 0.00
-
+    var boolInFun: Boolean = true
     private fun changeTemp(bool: Boolean) {
-        var boolInFun: Boolean = true
         if (bool && boolInFun) {
             temp = temp - 273
             beforButton = false
             boolInFun = false
         } else if (!bool && !beforButton && boolInFun) {
             temp = temp + 273
+            boolInFun = true
         }
         Log.i("tttttttttttttt", "$temp")
         binding.temp.text = getString(
